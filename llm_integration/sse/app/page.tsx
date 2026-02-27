@@ -21,7 +21,7 @@ export default function Page() {
   // }, []);
   useEffect(() => {
     const run = async () => {
-        const res = await get_sse("say hi 5 times")
+        const res = await get_sse("what's the weather in sf")
         const decoder = new TextDecoder()
         // const data = await res.json()
         // console.log("data")
