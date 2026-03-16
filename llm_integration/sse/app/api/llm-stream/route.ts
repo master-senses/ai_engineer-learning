@@ -24,14 +24,19 @@ const tools = [
 ]
 
 export async function POST(req: Request) {
-  const {prompt} = await req.json()
+  const {prompt, temp} = await req.json()
   let stream = client.messages.stream({
       messages: [{ role: "user", content: prompt}],
       model: "claude-haiku-4-5",
       max_tokens: 1024,
       tools: tools,
-      tool_choice: {"type": "tool", "name": "get_weather"}
+      tool_choice: {"type": "tool", "name": "get_weather"},
+      temperature: temp
     })
+  
+  req.signal.addEventListener("abort", () => {
+      stream.abort()  // stop the Anthropic stream if client disconnects
+  })
 
   const out = new ReadableStream({
     async start(controller) {

@@ -35,7 +35,7 @@ const client = new Anthropic({apiKey: anth_api});
 export async function POST() {
     // const {prompt} = await request.json()
   let stream = client.messages.stream({
-      messages: [{ role: "user", content: "what is the capital of ethipia, and is it related to india"}],
+      messages: [{ role: "user", content: "what is the capital of ethiopia?"}],
       model: "claude-haiku-4-5",
       max_tokens: 1024
     })
